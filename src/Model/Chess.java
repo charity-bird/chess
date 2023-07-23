@@ -34,6 +34,7 @@ public class Chess {
         public void setWhite(boolean white) { this.white = white; }
         public void setKilled(boolean killed) { this.killed = killed; }
         public abstract boolean canMove(Board board, Spot start, Spot end);
+        public abstract String toString();
     }
 
     public class Pawn extends Piece {
@@ -47,6 +48,12 @@ public class Chess {
 
             return false;
         }
+        public String toString() {
+            if (this.isWhite())
+                return "P";
+            else
+                return "p";
+        }
     }
     public class Rook extends Piece {
         public Rook(boolean white) {
@@ -56,6 +63,12 @@ public class Chess {
             if (end.getPiece().isWhite() == this.isWhite())
                 return false;
             return false;
+        }
+        public String toString() {
+            if (this.isWhite())
+                return "R";
+            else
+                return "r";
         }
     }
     public class Knight extends Piece {
@@ -67,6 +80,12 @@ public class Chess {
                 return false;
             return false;
         }
+        public String toString() {
+            if (this.isWhite())
+                return "N";
+            else
+                return "n";
+        }
     }
     public class Bishop extends Piece {
         public Bishop(boolean white) {
@@ -77,6 +96,12 @@ public class Chess {
                 return false;
             return false;
         }
+        public String toString() {
+            if (this.isWhite())
+                return "B";
+            else
+                return "b";
+        }
     }
     public class Queen extends Piece {
         public Queen(boolean white) {
@@ -86,6 +111,12 @@ public class Chess {
             if (end.getPiece().isWhite() == this.isWhite())
                 return false;
             return false;
+        }
+        public String toString() {
+            if (this.isWhite())
+                return "Q";
+            else
+                return "q";
         }
     }
     public class King extends Piece {
@@ -100,6 +131,12 @@ public class Chess {
             if (end.getPiece().isWhite() == this.isWhite())
                 return false;
             return false;
+        }
+        public String toString() {
+            if (this.isWhite())
+                return "K";
+            else
+                return "k";
         }
     }
 
@@ -152,13 +189,20 @@ public class Chess {
         }
     }
 
-    public class Move{}
-
     public class Player {}
+
+    public class Move {}
+
+
 
     public class Game {
 
-        public Game() {}
+        public Board board;
+
+
+        public Game() {
+            board = new Board();
+        }
 
         public boolean gameOver() {
             return false;
@@ -173,6 +217,16 @@ public class Chess {
         }
 
         public void printBoard() {
+            for(int i = 0; i <= 7; i++) {
+                for(int j = 0; j <= 7; j++) {
+                    if (this.board.board[i][j].getPiece() != null) {
+                        System.out.print("["+board.board[i][j].getPiece().toString()+"]");
+                    } else {
+                        System.out.print("[□]");
+                    }
+                }
+                System.out.println();
+            }
             System.out.println("This is a chessboard");
         }
     }
