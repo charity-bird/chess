@@ -21,6 +21,7 @@ public class Chess {
         public int getY() { return this.y; }
         public void setPiece(Piece piece) { this.piece = piece; }
         public Piece getPiece() { return this.piece;}
+        public String toString() { return Integer.toString(this.x)+Integer.toString(this.y); }
     }
     public abstract class Piece {
         private boolean white;
@@ -50,9 +51,9 @@ public class Chess {
         }
         public String toString() {
             if (this.isWhite())
-                return "P";
+                return "♙";
             else
-                return "p";
+                return "♟\uFE0E";
         }
     }
     public class Rook extends Piece {
@@ -66,9 +67,9 @@ public class Chess {
         }
         public String toString() {
             if (this.isWhite())
-                return "R";
+                return "♖";
             else
-                return "r";
+                return "♜";
         }
     }
     public class Knight extends Piece {
@@ -82,9 +83,9 @@ public class Chess {
         }
         public String toString() {
             if (this.isWhite())
-                return "N";
+                return "♘";
             else
-                return "n";
+                return "♞";
         }
     }
     public class Bishop extends Piece {
@@ -98,9 +99,9 @@ public class Chess {
         }
         public String toString() {
             if (this.isWhite())
-                return "B";
+                return "♗";
             else
-                return "b";
+                return "♝";
         }
     }
     public class Queen extends Piece {
@@ -114,9 +115,9 @@ public class Chess {
         }
         public String toString() {
             if (this.isWhite())
-                return "Q";
+                return "♕";
             else
-                return "q";
+                return "♛";
         }
     }
     public class King extends Piece {
@@ -134,9 +135,9 @@ public class Chess {
         }
         public String toString() {
             if (this.isWhite())
-                return "K";
+                return "♔";
             else
-                return "k";
+                return "♚";
         }
     }
 
@@ -220,9 +221,9 @@ public class Chess {
             for(int i = 0; i <= 7; i++) {
                 for(int j = 0; j <= 7; j++) {
                     if (this.board.board[i][j].getPiece() != null) {
-                        System.out.print("["+board.board[i][j].getPiece().toString()+"]");
+                        System.out.print("\t["+board.board[i][j].getPiece().toString()+"]");
                     } else {
-                        System.out.print("[□]");
+                        System.out.print("\t["+board.board[i][j].toString()+"]");
                     }
                 }
                 System.out.println();

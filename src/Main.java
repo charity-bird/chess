@@ -11,10 +11,9 @@ public class Main {
 
         Chess chess = new Chess();
         while(chess.game.gameOver() == false) {
+            chess.game.printBoard();
             String move = sc.nextLine();
             chess.game.move(move);
-            chess.game.printMove();
-            chess.game.printBoard();
         }
 
     }
