@@ -21,7 +21,18 @@ public class Chess {
         public int getY() { return this.y; }
         public void setPiece(Piece piece) { this.piece = piece; }
         public Piece getPiece() { return this.piece;}
-        public String toString() { return Integer.toString(this.x)+Integer.toString(this.y); }
+        public String toString() {
+            String row;
+            if (this.x == 0) row = "A";
+            else if (this.x == 1) row = "B";
+            else if (this.x == 2) row = "C";
+            else if (this.x == 3) row = "D";
+            else if (this.x == 4) row = "E";
+            else if (this.x == 5) row = "F";
+            else if (this.x == 6) row = "G";
+            else row = "H";
+            return row+Integer.toString(this.y);
+        }
     }
     public abstract class Piece {
         private boolean white;
