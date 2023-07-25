@@ -23,15 +23,15 @@ public class Chess {
         public Piece getPiece() { return this.piece;}
         public String toString() {
             String row;
-            if (this.x == 0) row = "A";
-            else if (this.x == 1) row = "B";
-            else if (this.x == 2) row = "C";
-            else if (this.x == 3) row = "D";
-            else if (this.x == 4) row = "E";
-            else if (this.x == 5) row = "F";
-            else if (this.x == 6) row = "G";
-            else row = "H";
-            return row+Integer.toString(this.y);
+            if (this.x == 0) row = "a";
+            else if (this.x == 1) row = "b";
+            else if (this.x == 2) row = "c";
+            else if (this.x == 3) row = "d";
+            else if (this.x == 4) row = "e";
+            else if (this.x == 5) row = "f";
+            else if (this.x == 6) row = "g";
+            else row = "h";
+            return row+Integer.toString(y);
         }
     }
     public abstract class Piece {
@@ -201,7 +201,27 @@ public class Chess {
         }
     }
 
-    public class Player {}
+    public abstract class Player {
+        public boolean white;
+        public boolean humanPlayer;
+        public Player(boolean white) {
+            this.white = white;
+        }
+        public boolean isHumanPlayer() { return this.humanPlayer; }
+        public boolean isWhite() { return this.white; }
+    }
+    public class HumanPlayer extends Player {
+        public HumanPlayer(boolean white) {
+            super(white);
+            this.humanPlayer = true;
+        }
+    }
+    public class ComputerPlayer extends Player {
+        public ComputerPlayer(boolean white) {
+            super(white);
+            this.humanPlayer = false;
+        }
+    }
 
     public class Move {}
 
