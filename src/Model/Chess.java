@@ -280,6 +280,20 @@ public class Chess {
 
         public boolean makeMove(Move move, Player player) {
             System.out.println(move.toString());
+
+            // Check if the piece at end belongs to the player
+                // Check if start location has a piece belonging to the player
+                    // Check if this is a King that belongs to the player & if the end location castles
+                        // Castle if possible
+                    // Otherwise this is not a King but another piece that
+                        // Check if the piece can move to the end location
+                            // Check if end location has a piece belonging to the opponent
+                                //Take the piece and remove it from the board
+                            // Move the piece to the empty location
+                        // Return false if the piece cannot move to the end location
+                // Return false if start location does not have a piece belonging to the player
+            // Return false start location does not have a piece
+
             return true;
         }
 
