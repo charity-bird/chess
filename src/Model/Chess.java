@@ -199,9 +199,14 @@ public class Chess {
                 }
             }
         }
+
+        public Spot getSpot(int x, int y) {
+            return board[x][y];
+        }
+
     }
 
-    public abstract class Player {
+    public static abstract class Player {
         public boolean white;
         public boolean humanPlayer;
         public Player(boolean white) {
@@ -209,21 +214,47 @@ public class Chess {
         }
         public boolean isHumanPlayer() { return this.humanPlayer; }
         public boolean isWhite() { return this.white; }
+        public String toString() {
+            String playerType = "";
+            if (this.white && this.humanPlayer)
+                return "White Human Player";
+            else if (this.white && !this.humanPlayer)
+                return "Black Computer Player";
+            else if (!this.white && this.humanPlayer)
+                return "Black Human Player";
+            else
+                return "White Computer Player";
+        }
     }
-    public class HumanPlayer extends Player {
+    public static class HumanPlayer extends Player {
         public HumanPlayer(boolean white) {
             super(white);
             this.humanPlayer = true;
         }
     }
-    public class ComputerPlayer extends Player {
+    public static class ComputerPlayer extends Player {
         public ComputerPlayer(boolean white) {
             super(white);
             this.humanPlayer = false;
         }
     }
 
-    public class Move {}
+    public class Move {
+        private Player player;
+        private Spot start;
+        private Spot end;
+
+        public Move(Player player, Spot start, Spot end) {
+            this.player = player;
+            this.start = start;
+            this.end = end;
+        }
+        public String toString() {
+            return "Player: " + player.toString()
+                    + " Start: " + start.getX() + "," + start.getY()
+                    + " End: " + end.getX() + "," + end.getY();
+        }
+    }
 
 
 
@@ -240,8 +271,16 @@ public class Chess {
             return false;
         }
 
-        public void move(String move) {
-            // TODO: Translate move to move()
+        public boolean playerMove(Player player, int startX, int startY, int endX, int endY) {
+            Spot startBox = board.getSpot(startX, startY);
+            Spot endBox = board.getSpot(endX, endY);
+            Move move = new Move(player, startBox, endBox);
+            return this.makeMove(move, player);
+        }
+
+        public boolean makeMove(Move move, Player player) {
+            System.out.println(move.toString());
+            return true;
         }
 
         public void printMove() {
