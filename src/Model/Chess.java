@@ -1,5 +1,8 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * With reference to https://www.geeksforgeeks.org/design-a-chess-game/
  */
@@ -54,11 +57,11 @@ public class Chess {
             super(white);
         }
         public boolean canMove(Board board, Spot start, Spot end) {
-            if (end.getPiece().isWhite() == this.isWhite())
+            if (end.getPiece() != null
+                && end.getPiece().isWhite() == this.isWhite())
                 return false;
-            int x = Math.abs(start.getX() - end.getX());
 
-            return false;
+            return true;
         }
         public String toString() {
             if (this.isWhite())
@@ -256,16 +259,29 @@ public class Chess {
         }
     }
 
-
+    public enum GameStatus {
+        ACTIVE,
+        BLACK_WIN,
+        WHITE_WIN,
+        STALEMATE,
+        FORFIEGHT,
+        RESIGNATION
+    }
 
     public class Game {
 
-        public Board board;
+        private Board board;
+        private List<Move> movesPlayed;
+        private GameStatus gameStatus;
+
 
 
         public Game() {
+            movesPlayed = new ArrayList<Move>();
             board = new Board();
         }
+
+        public void setStatus(GameStatus status) { this.gameStatus = status; }
 
         public boolean gameOver() {
             return false;
@@ -281,20 +297,43 @@ public class Chess {
         public boolean makeMove(Move move, Player player) {
             System.out.println(move.toString());
 
-            // Check if the piece at end belongs to the player
-                // Check if start location has a piece belonging to the player
-                    // Check if this is a King that belongs to the player & if the end location castles
-                        // Castle if possible
-                    // Otherwise this is not a King but another piece that
-                        // Check if the piece can move to the end location
-                            // Check if end location has a piece belonging to the opponent
-                                //Take the piece and remove it from the board
-                            // Move the piece to the empty location
-                        // Return false if the piece cannot move to the end location
-                // Return false if start location does not have a piece belonging to the player
-            // Return false start location does not have a piece
+            Piece sourcePiece = move.start.getPiece();
+            if (sourcePiece == null) {
+                return false;
+            }
 
-            return true;
+            if (sourcePiece.isWhite() != player.isWhite()) {
+                return false;
+            }
+
+            if (!sourcePiece.canMove(board, move.start, move.end)) {
+                return false;
+            }
+
+            // kill?
+            Piece destPiece = move.start.getPiece();
+            if (destPiece != null) {
+                destPiece.setKilled(true);
+            }
+
+            // store the move
+            movesPlayed.add(move);
+
+            // move piece from the start of the box to the end of the box
+            move.end.setPiece(move.start.getPiece());
+            move.start.setPiece(null);
+
+            if (destPiece != null && destPiece instanceof King) {
+                if (player.isWhite()) {
+                    this.setStatus(GameStatus.WHITE_WIN);
+                }
+                else {
+                    this.setStatus(GameStatus.BLACK_WIN);
+                }
+            }
+
+
+            return false;
         }
 
         public void printMove() {
