@@ -23,27 +23,16 @@ public class Main {
             String move = sc.nextLine();
 
             int startX = -1;
-            if (move.charAt(0) == 'a') { startX = 0; }
-            if (move.charAt(0) == 'b') { startX = 1; }
-            if (move.charAt(0) == 'c') { startX = 2; }
-            if (move.charAt(0) == 'd') { startX = 3; }
-            if (move.charAt(0) == 'e') { startX = 4; }
-            if (move.charAt(0) == 'f') { startX = 5; }
-            if (move.charAt(0) == 'g') { startX = 6; }
-            if (move.charAt(0) == 'h') { startX = 7; }
             int startY = charToInteger(move.charAt(1));
-
             int endX = -1;
-            if (move.charAt(3) == 'a') { endX = 0; }
-            if (move.charAt(3) == 'b') { endX = 1; }
-            if (move.charAt(3) == 'c') { endX = 2; }
-            if (move.charAt(3) == 'd') { endX = 3; }
-            if (move.charAt(3) == 'e') { endX = 4; }
-            if (move.charAt(3) == 'f') { endX = 5; }
-            if (move.charAt(3) == 'g') { endX = 6; }
-            if (move.charAt(3) == 'h') { endX = 7; }
             int endY = charToInteger(move.charAt(4));
 
+            for (int i = 0; i <= 7; i++) {
+                if (move.charAt(0) == (char)('a'+i)) { startX = i; }
+                if (move.charAt(3) == (char)('a'+i)) { endX = i; }
+            }
+
+            System.out.println("Move: startX:" + startX +" startY:"+ startY +" endX:"+ endX +" endY:"+ endY);
             chess.game.playerMove(humanPlayer, startX, startY, endX, endY);
         }
 
