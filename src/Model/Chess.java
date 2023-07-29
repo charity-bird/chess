@@ -25,15 +25,8 @@ public class Chess {
         public void setPiece(Piece piece) { this.piece = piece; }
         public Piece getPiece() { return this.piece;}
         public String toString() {
-            String row;
-            if (this.x == 0) row = "a";
-            else if (this.x == 1) row = "b";
-            else if (this.x == 2) row = "c";
-            else if (this.x == 3) row = "d";
-            else if (this.x == 4) row = "e";
-            else if (this.x == 5) row = "f";
-            else if (this.x == 6) row = "g";
-            else row = "h";
+            String row = "";
+            for(int i = 0; i <= 7; i++) { if(this.x == i) { row = Character.toString((char)('a'+i)); } }
             return row+Integer.toString(y);
         }
     }
@@ -67,7 +60,7 @@ public class Chess {
             if (this.isWhite())
                 return "♙";
             else
-                return "♟\uFE0E";
+                return "♟";
         }
     }
     public class Rook extends Piece {
